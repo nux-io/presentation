@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUX - Soluciones de Automatización Modular</title>
+    <title>NUX: Proyecto Completo e Infraestructura</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -37,9 +37,9 @@
             50% { transform: translateY(-20px); }
         }
 
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 199, 0, 0.4); }
-            50% { box-shadow: 0 0 40px rgba(255, 199, 0, 0.8); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes slideInLeft {
@@ -52,22 +52,8 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
         .animate-float {
             animation: float 3s ease-in-out infinite;
-        }
-
-        .animate-pulse-glow {
-            animation: pulse-glow 2s ease-in-out infinite;
         }
 
         .animate-on-scroll {
@@ -78,7 +64,7 @@
             animation: fadeInUp 0.8s ease-out forwards;
         }
 
-        /* Header con efecto parallax */
+        /* Header */
         .header-bg {
             background: linear-gradient(135deg, #3C004F 0%, #6B1B8F 50%, #3C004F 100%);
             position: relative;
@@ -96,8 +82,8 @@
             animation: float 6s ease-in-out infinite;
         }
 
-        /* Cards mejorados */
-        .step-card {
+        /* Cards */
+        .step-card, .feature-card {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 2px solid #E0E0E0;
             border-radius: 16px;
@@ -106,7 +92,7 @@
             overflow: hidden;
         }
 
-        .step-card::before {
+        .step-card::before, .feature-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -117,17 +103,17 @@
             transition: left 0.5s;
         }
 
-        .step-card:hover::before {
+        .step-card:hover::before, .feature-card:hover::before {
             left: 100%;
         }
 
-        .step-card:hover {
+        .step-card:hover, .feature-card:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 40px rgba(60, 0, 79, 0.2);
             border-color: #FFC700;
         }
 
-        /* Icon circles con efectos */
+        /* Icon circles */
         .icon-circle {
             min-width: 3.5rem;
             min-height: 3.5rem;
@@ -137,7 +123,7 @@
             transition: all 0.3s ease;
         }
 
-        .step-card:hover .icon-circle {
+        .step-card:hover .icon-circle, .feature-card:hover .icon-circle {
             transform: rotate(360deg) scale(1.1);
         }
 
@@ -147,7 +133,7 @@
             box-shadow: 0 4px 15px rgba(255, 199, 0, 0.6);
         }
 
-        /* CTA Button mejorado */
+        /* CTA Button */
         .cta-button {
             background: linear-gradient(135deg, #FFC700 0%, #FFD740 100%);
             color: #3C004F;
@@ -192,7 +178,7 @@
             50% { opacity: 0.6; transform: scale(1.1); }
         }
 
-        /* Block backgrounds mejorados */
+        /* Block backgrounds */
         .block-bg {
             background: linear-gradient(135deg, #3C004F 0%, #6B1B8F 100%);
             color: white;
@@ -210,29 +196,49 @@
             border-radius: 50%;
         }
 
-        /* Counter animation */
-        .counter {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #FFC700;
-        }
-
-        /* Progress indicators */
-        .progress-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #D1C4E9;
+        /* Sticky nav */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
 
-        .progress-dot.active {
-            background: #FFC700;
-            box-shadow: 0 0 20px rgba(255, 199, 0, 0.6);
-            transform: scale(1.5);
+        .sticky-nav.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        /* Modal styles */
+        /* Ripple effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #FFC700 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform 0.5s, opacity 1s;
+        }
+
+        .ripple:active::after {
+            transform: scale(0, 0);
+            opacity: 0.3;
+            transition: 0s;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -265,10 +271,160 @@
             to { opacity: 1; }
         }
 
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Section divider */
+        .section-divider {
+            background: linear-gradient(135deg, #3C004F 0%, #6B1B8F 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 199, 0, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        /* Tabs */
+        .tab-button {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #3C004F 0%, #6B1B8F 100%);
+            color: white;
+            border-color: #FFC700;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Comparison table */
+        .comparison-table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #3C004F 0%, #6B1B8F 100%);
+            color: white;
+            padding: 1rem;
+            font-weight: 700;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        .comparison-table tr:hover td {
+            background: #f8f9ff;
+        }
+
+        /* Icon badge */
+        .icon-badge {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .icon-badge {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Resource links */
+        .resource-link {
+            transition: all 0.3s ease;
+            border-left: 4px solid #FFC700;
+        }
+
+        .resource-link:hover {
+            background: #f8f9ff;
+            border-left-width: 6px;
+            transform: translateX(5px);
+        }
+
+        /* Pricing highlight */
+        .pricing-highlight {
+            background: linear-gradient(135deg, #FFC700 0%, #FFD740 100%);
+            color: #3C004F;
+            position: relative;
+        }
+
+        .pricing-highlight::after {
+            content: '🎉 MEJOR OPCIÓN';
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #3C004F;
+            color: #FFC700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        /* Phase steps */
+        .phase-step {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .phase-step::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            width: 2px;
+            height: calc(100% - 40px);
+            background: #D1C4E9;
+        }
+
+        .phase-step:last-child::before {
+            display: none;
+        }
+
+        .phase-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3C004F 0%, #6B1B8F 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(60, 0, 79, 0.3);
+        }
+
         /* Tooltip */
         .tooltip {
             position: relative;
-            cursor: help;
         }
 
         .tooltip-text {
@@ -294,51 +450,19 @@
             bottom: 135%;
         }
 
-        /* Sticky navigation */
-        .sticky-nav {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+        /* Progress dots */
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #D1C4E9;
             transition: all 0.3s ease;
         }
 
-        .sticky-nav.scrolled {
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Glowing text */
-        .glow-text {
-            text-shadow: 0 0 20px rgba(255, 199, 0, 0.5);
-        }
-
-        /* Ripple effect */
-        .ripple {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .ripple::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            background-image: radial-gradient(circle, #FFC700 10%, transparent 10.01%);
-            background-repeat: no-repeat;
-            background-position: 50%;
-            transform: scale(10, 10);
-            opacity: 0;
-            transition: transform 0.5s, opacity 1s;
-        }
-
-        .ripple:active::after {
-            transform: scale(0, 0);
-            opacity: 0.3;
-            transition: 0s;
+        .progress-dot.active {
+            background: #FFC700;
+            box-shadow: 0 0 20px rgba(255, 199, 0, 0.6);
+            transform: scale(1.5);
         }
     </style>
 </head>
@@ -346,36 +470,47 @@
 
     <!-- Sticky Navigation -->
     <nav class="sticky-nav py-4 px-6 mb-4 rounded-2xl" id="stickyNav">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <div class="max-w-6xl mx-auto flex justify-between items-center flex-wrap gap-4">
             <div class="text-2xl font-bold text-nux-deep-purple">NUX</div>
-            <div class="flex gap-6">
-                <a href="#desafio" class="text-sm font-semibold hover:text-nux-vibrant-yellow transition">Desafío</a>
-                <a href="#modelo" class="text-sm font-semibold hover:text-nux-vibrant-yellow transition">Modelo</a>
-                <a href="#proceso" class="text-sm font-semibold hover:text-nux-vibrant-yellow transition">Proceso</a>
-                <a href="#suscripcion" class="text-sm font-semibold hover:text-nux-vibrant-yellow transition">Suscripción</a>
+            <div class="flex gap-4 flex-wrap text-sm font-semibold">
+                <a href="#proyecto" class="hover:text-nux-vibrant-yellow transition">📋 Proyecto</a>
+                <a href="#desafio" class="hover:text-nux-vibrant-yellow transition">Desafío</a>
+                <a href="#modelo" class="hover:text-nux-vibrant-yellow transition">Modelo</a>
+                <a href="#proceso" class="hover:text-nux-vibrant-yellow transition">Proceso</a>
+                <a href="#infraestructura" class="hover:text-nux-vibrant-yellow transition">🖥️ Infraestructura</a>
+                <a href="#coolify" class="hover:text-nux-vibrant-yellow transition">Coolify</a>
+                <a href="#comparacion" class="hover:text-nux-vibrant-yellow transition">Comparación</a>
             </div>
         </div>
     </nav>
 
     <div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
 
-        <!-- Header Principal -->
-        <header class="header-bg text-white p-8 sm:p-16 rounded-t-2xl relative z-10">
+        <!-- ============================================ -->
+        <!-- SECCIÓN 1: EXPLICACIÓN DEL PROYECTO NUX -->
+        <!-- ============================================ -->
+
+        <!-- Header Principal Proyecto -->
+        <header id="proyecto" class="header-bg text-white p-8 sm:p-16 rounded-t-2xl relative z-10">
             <div class="max-w-4xl mx-auto">
+                <div class="inline-block mb-4 px-4 py-2 bg-nux-vibrant-yellow text-nux-deep-purple rounded-full text-sm font-bold">
+                    📋 EXPLICACIÓN DEL PROYECTO
+                </div>
                 <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight">
                     NUX: Soluciones de Automatización Modular
                 </h1>
-                <p class="text-lg sm:text-xl font-normal text-white/90 max-w-2xl">
+                <p class="text-lg sm:text-xl text-white/90 max-w-2xl">
                     La tecnología se adapta a su empresa, no al revés.
                 </p>
             </div>
             
             <!-- Progress Indicators -->
             <div class="flex justify-center gap-3 mt-10">
-                <div class="progress-dot active" data-section="desafio"></div>
+                <div class="progress-dot active" data-section="proyecto"></div>
+                <div class="progress-dot" data-section="desafio"></div>
                 <div class="progress-dot" data-section="modelo"></div>
                 <div class="progress-dot" data-section="proceso"></div>
-                <div class="progress-dot" data-section="suscripcion"></div>
+                <div class="progress-dot" data-section="infraestructura"></div>
             </div>
         </header>
 
@@ -390,7 +525,7 @@
                 <div class="step-card p-6 shadow-lg border-l-4 border-red-500 ripple">
                     <div class="flex items-start space-x-4">
                         <div class="icon-circle highlight-icon rounded-xl flex items-center justify-center text-lg font-bold flex-shrink-0">
-                            <span class="counter" data-target="100">0</span>%
+                            <span class="counter" data-target="100">100</span>%
                         </div>
                         <div class="flex-1">
                             <h3 class="text-lg font-bold text-nux-deep-purple mb-2">Software Genérico (Ineficiente)</h3>
@@ -562,7 +697,7 @@
         </section>
 
         <!-- Sección 4: Suscripción -->
-        <section id="suscripcion" class="p-6 sm:p-10 animate-on-scroll">
+        <section class="p-6 sm:p-10 animate-on-scroll">
             <h2 class="text-3xl sm:text-4xl font-bold text-nux-deep-purple mb-10 border-b-4 border-nux-vibrant-yellow pb-3">
                 4. Compromiso Post-Entrega: La Suscripción
             </h2>
@@ -607,159 +742,403 @@
             </div>
         </section>
 
-        <!-- Footer / CTA -->
-        <footer class="header-bg p-8 sm:p-12 rounded-b-2xl mt-8 relative z-10">
+        <!-- ============================================ -->
+        <!-- DIVISOR DE SECCIÓN -->
+        <!-- ============================================ -->
+
+        <div class="section-divider p-12 my-8 relative z-10">
             <div class="text-center">
-                <p class="text-white text-xl sm:text-2xl font-light mb-6">
-                    Permita que su microempresa opere con la misma precisión tecnológica de una corporación, <span class="text-nux-vibrant-yellow font-bold">al precio de una solución local.</span>
+                <div class="inline-block mb-4 px-6 py-3 bg-nux-vibrant-yellow text-nux-deep-purple rounded-full text-lg font-bold">
+                    🖥️ INFRAESTRUCTURA PARA GESTIÓN MODULAR
+                </div>
+                <h2 class="text-4xl font-extrabold text-white mb-4">
+                    Coolify: La Plataforma Perfecta para NUX
+                </h2>
+                <p class="text-xl text-white/90 max-w-3xl mx-auto">
+                    Cómo implementar la infraestructura que potencia las soluciones modulares
                 </p>
-                <button class="cta-button inline-block py-4 px-10 rounded-full font-extrabold text-xl uppercase tracking-wider ripple" onclick="openModal('cta')">
-                    Solicite Su Cotización IA Hoy
-                </button>
-                <p class="text-white/70 text-sm mt-4">⚡ Respuesta en menos de 24 horas</p>
             </div>
-        </footer>
-
-    </div>
-
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-2xl font-bold text-nux-deep-purple" id="modalTitle"></h3>
-                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
-            </div>
-            <div id="modalBody" class="text-gray-700"></div>
-            <button onclick="closeModal()" class="mt-6 w-full bg-nux-vibrant-yellow text-nux-deep-purple py-3 rounded-lg font-bold hover:shadow-lg transition">
-                Cerrar
-            </button>
         </div>
-    </div>
 
-    <script>
-        // Intersection Observer para animaciones
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        <!-- ============================================ -->
+        <!-- SECCIÓN 2: INFRAESTRUCTURA (COOLIFY) -->
+        <!-- ============================================ -->
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, observerOptions);
+        <!-- Introducción Coolify -->
+        <section id="infraestructura" class="p-6 sm:p-10 animate-on-scroll">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl sm:text-3xl font-bold text-nux-deep-purple mb-6">¿Qué es Coolify?</h2>
+                <div class="bg-gradient-to-r from-yellow-50 to-purple-50 border-l-4 border-nux-vibrant-yellow p-6 rounded-xl mb-6">
+                    <p class="text-lg text-gray-700 italic">
+                        Coolify es una alternativa open-source y auto-alojable a Heroku, Netlify y Vercel. Te ayuda a desplegar y gestionar servidores, aplicaciones y bases de datos en tu propio hardware con solo una conexión SSH.
+                    </p>
+                </div>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    Imagina tener la facilidad de una plataforma cloud pero con tus propios servidores. Eso es Coolify. Sin vendor lock-in, sin límites artificiales, sin características bloqueadas detrás de paywalls.
+                </p>
+                <div class="grid md:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-purple-50 p-4 rounded-lg border-2 border-purple-200">
+                        <div class="text-3xl mb-2">🆓</div>
+                        <div class="font-bold text-nux-deep-purple">100% Gratuito</div>
+                        <p class="text-sm text-gray-600 mt-1">Open-source sin limitaciones</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg border-2 border-purple-200">
+                        <div class="text-3xl mb-2">🔓</div>
+                        <div class="font-bold text-nux-deep-purple">Sin Vendor Lock-in</div>
+                        <p class="text-sm text-gray-600 mt-1">Total control de tu infraestructura</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg border-2 border-purple-200">
+                        <div class="text-3xl mb-2">♾️</div>
+                        <div class="font-bold text-nux-deep-purple">Despliegues Ilimitados</div>
+                        <p class="text-sm text-gray-600 mt-1">Sin restricciones ni cuotas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
+        <!-- Alineación Coolify con NUX -->
+        <section id="coolify" class="p-6 sm:p-10 bg-gradient-to-br from-purple-50 to-yellow-50 animate-on-scroll">
+            <h2 class="text-2xl sm:text-3xl font-bold text-nux-deep-purple mb-8 text-center">
+                Alineación Perfecta con los 3 Principios de NUX
+            </h2>
 
-        // Sticky nav scroll effect
-        const stickyNav = document.getElementById('stickyNav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                stickyNav.classList.add('scrolled');
-            } else {
-                stickyNav.classList.remove('scrolled');
-            }
-        });
+            <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Principio 1 -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="icon-badge bg-gradient-to-br from-purple-100 to-purple-200 mb-4">
+                        🎯
+                    </div>
+                    <h3 class="text-xl font-bold text-nux-deep-purple mb-3">1. Soluciones Quirúrgicas</h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        Deploy módulos independientes sin infraestructura pesada. Cada cliente solo usa los recursos que necesita.
+                    </p>
+                    <div class="bg-purple-50 p-3 rounded-lg">
+                        <p class="text-xs font-bold text-nux-deep-purple">✓ Módulos en contenedores Docker</p>
+                        <p class="text-xs font-bold text-nux-deep-purple">✓ Deploy en minutos, no días</p>
+                        <p class="text-xs font-bold text-nux-deep-purple">✓ Escalabilidad por módulo</p>
+                    </div>
+                </div>
 
-        // Progress dots
-        const sections = ['desafio', 'modelo', 'proceso', 'suscripcion'];
-        window.addEventListener('scroll', () => {
-            sections.forEach((section, index) => {
-                const element = document.getElementById(section);
-                const dot = document.querySelector(`[data-section="${section}"]`);
-                if (element && dot) {
-                    const rect = element.getBoundingClientRect();
-                    if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-                        document.querySelectorAll('.progress-dot').forEach(d => d.classList.remove('active'));
-                        dot.classList.add('active');
-                    }
-                }
-            });
-        });
+                <!-- Principio 2 -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="icon-badge bg-gradient-to-br from-yellow-100 to-yellow-200 mb-4">
+                        💰
+                    </div>
+                    <h3 class="text-xl font-bold text-nux-deep-purple mb-3">2. Precios Accesibles</h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        Infraestructura predecible y económica. Sin costos ocultos ni sorpresas en la factura.
+                    </p>
+                    <div class="bg-yellow-50 p-3 rounded-lg">
+                        <p class="text-xs font-bold text-nux-deep-purple">✓ ~$5/mes por servidor VPS</p>
+                        <p class="text-xs font-bold text-nux-deep-purple">✓ Software 100% gratuito</p>
+                        <p class="text-xs font-bold text-nux-deep-purple">✓ SSL automático sin costo</p>
+                    </div>
+                </div>
 
-        // Counter animation
-        function animateCounter(element) {
-            const target = parseInt(element.getAttribute('data-target'));
-            const duration = 2000;
-            const step = target / (duration / 16);
-            let current = 0;
+                <!-- Principio 3 -->
+                <div class="feature-card p-6 rounded-xl">
+                    <div class="icon-badge bg-gradient-to-br from-blue-100 to-blue-200 mb-4">
+                        🎨
+                    </div>
+                    <h3 class="text-xl font-bold text-nux-deep-purple mb-3">3. Identidad y Coherencia</h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        Interfaz unificada para todos los módulos. Dashboard centralizado para el equipo NUX.
+                    </p>
+                    <div class="bg-blue-50 p-3 rounded-lg">
+                        <p class="text-xs font-bold text-nux-deep-purple">✓ UI consistente y profesional</p>
+                        <p class="text-xs font-bold text-nux-deep-purple">✓ Gestión centralizada</p>
+                        <p class="text-xs font-bold text-nux-deep-purple">✓ Monitoreo en tiempo real</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            const timer = setInterval(() => {
-                current += step;
-                if (current >= target) {
-                    element.textContent = target;
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(current);
-                }
-            }, 16);
-        }
+        <!-- Integración con Proceso NUX -->
+        <section class="p-6 sm:p-10 animate-on-scroll">
+            <h2 class="text-2xl sm:text-3xl font-bold text-nux-deep-purple mb-8">
+                Integración con el Proceso Ágil de NUX
+            </h2>
 
-        document.querySelectorAll('.counter').forEach(counter => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateCounter(entry.target);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            });
-            observer.observe(counter);
-        });
+            <div class="space-y-6">
+                <!-- Fase 1 -->
+                <div class="phase-step">
+                    <div class="phase-number">1</div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-nux-deep-purple mb-2">FASE I: Calificación y Acuerdo</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            <strong>Coolify ayuda:</strong> Configuraciones declarativas permiten cotizar recursos exactos antes de empezar.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-purple-50 p-3 rounded-lg">
+                                <p class="text-xs font-bold text-nux-deep-purple mb-1">🤖 Templates pre-configurados</p>
+                                <p class="text-xs text-gray-600">Estima recursos con precisión</p>
+                            </div>
+                            <div class="bg-purple-50 p-3 rounded-lg">
+                                <p class="text-xs font-bold text-nux-deep-purple mb-1">💵 Costo predecible</p>
+                                <p class="text-xs text-gray-600">Cotización transparente para el cliente</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        // Modal functionality
-        const modalContent = {
-            'quirurgicas': {
-                title: '🎯 Soluciones Quirúrgicas',
-                body: '<p class="mb-4">Ejemplo: Sistema de facturación automatizado que solo incluye:</p><ul class="list-disc list-inside space-y-2"><li>Generación de facturas PDF</li><li>Envío automático por email</li><li>Registro en base de datos</li></ul><p class="mt-4 font-semibold text-nux-vibrant-yellow">Ahorro: hasta 70% vs. software completo</p>'
-            },
-            'precios': {
-                title: '💰 Calculadora de ROI',
-                body: '<p class="mb-4">Estimación de ahorro mensual:</p><div class="bg-purple-50 p-4 rounded-lg"><p class="text-2xl font-bold text-nux-deep-purple mb-2">15-25 horas/mes</p><p class="text-sm">Tiempo ahorrado en procesos manuales</p></div><p class="mt-4 text-sm text-gray-600">*Basado en promedio de proyectos implementados</p>'
-            },
-            'identidad': {
-                title: '🎨 La Caja de Nux',
-                body: '<p class="mb-4">Todas nuestras soluciones comparten:</p><ul class="list-disc list-inside space-y-2"><li>Paleta de colores corporativa</li><li>Diseño responsive moderno</li><li>Interfaz intuitiva</li><li>Documentación completa</li></ul>'
-            },
-            'cta': {
-                title: '📩 Solicitar Cotización',
-                body: '<p class="mb-4">Complete este breve formulario y reciba una cotización personalizada en menos de 24 horas.</p><form class="space-y-3"><input type="text" placeholder="Nombre de su empresa" class="w-full p-3 border rounded-lg"><input type="email" placeholder="Email" class="w-full p-3 border rounded-lg"><textarea placeholder="Describa su necesidad" class="w-full p-3 border rounded-lg" rows="3"></textarea><button type="submit" class="w-full bg-nux-deep-purple text-white py-3 rounded-lg font-bold">Enviar Solicitud</button></form>'
-            }
-        };
+                <!-- Fase 2 -->
+                <div class="phase-step">
+                    <div class="phase-number">2</div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-nux-deep-purple mb-2">FASE II: Producción y QA</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            <strong>Coolify potencia:</strong> Despliegues automatizados con versionado Git. IA genera código → Docker garantiza funcionamiento.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-3 rounded-lg">
+                                <p class="text-xs font-bold text-nux-deep-purple mb-1">🔄 CI/CD Automático</p>
+                                <p class="text-xs text-gray-600">Push to deploy desde Git</p>
+                            </div>
+                            <div class="bg-blue-50 p-3 rounded-lg">
+                                <p class="text-xs font-bold text-nux-deep-purple mb-1">🐳 Docker Nativo</p>
+                                <p class="text-xs text-gray-600">Entornos reproducibles</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        function openModal(type) {
-            const modal = document.getElementById('modal');
-            const content = modalContent[type];
-            document.getElementById('modalTitle').textContent = content.title;
-            document.getElementById('modalBody').innerHTML = content.body;
-            modal.classList.add('active');
-        }
+                <!-- Fase 3 -->
+                <div class="phase-step">
+                    <div class="phase-number">3</div>
+                    <div class="feature-card p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-nux-deep-purple mb-2">FASE III: Entrega y Adopción</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            <strong>Coolify facilita:</strong> 280+ servicios one-click disponibles. Subdominios y SSL configurados automáticamente.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-yellow-50 p-3 rounded-lg">
+                                <p class="text-xs font-bold text-nux-deep-purple mb-1">🌐 Subdominios Automáticos</p>
+                                <p class="text-xs text-gray-600">cliente.nux.com listo en segundos</p>
+                            </div>
+                            <div class="bg-yellow-50 p-3 rounded-lg">
+                                <p class="text-xs font-bold text-nux-deep-purple mb-1">🔒 SSL Gratuito</p>
+                                <p class="text-xs text-gray-600">Let's Encrypt integrado</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-        }
+        <!-- Gestión de Subdominios -->
+        <section class="p-6 sm:p-10 bg-gradient-to-br from-blue-50 to-purple-50 animate-on-scroll">
+            <h2 class="text-2xl sm:text-3xl font-bold text-nux-deep-purple mb-6">
+                🌐 Gestión de Subdominios Simplificada
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="feature-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-nux-deep-purple mb-4">Configuración Automática</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3">
+                            <span class="text-2xl">✅</span>
+                            <div>
+                                <p class="font-semibold text-sm">Subdominios por Cliente</p>
+                                <p class="text-xs text-gray-600">cliente1.nux.com, cliente2.nux.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-2xl">✅</span>
+                            <div>
+                                <p class="font-semibold text-sm">SSL Automático y Renovable</p>
+                                <p class="text-xs text-gray-600">Let's Encrypt integrado</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-2xl">✅</span>
+                            <div>
+                                <p class="font-semibold text-sm">DNS Wildcard</p>
+                                <p class="text-xs text-gray-600">*.nux.com configurado una vez</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
+                <div class="feature-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-nux-deep-purple mb-4">Ejemplo Práctico</h3>
+                    <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-xs overflow-x-auto">
+                        <div class="mb-2"># Cliente: Restaurante "El Buen Sabor"</div>
+                        <div class="text-yellow-400">→ Deploy automático</div>
+                        <div>  URL: restaurante-sabor.nux.com</div>
+                        <div>  SSL: ✓ Configurado</div>
+                        <div>  Tiempo: 3 minutos</div>
+                        <div class="mt-3 text-yellow-400">→ Módulo listo para usar</div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-3">
+                        Todo configurado automáticamente desde el push de Git
+                    </p>
+                </div>
+            </div>
+        </section>
 
-        // Close modal on outside click
-        document.getElementById('modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-    </script>
-</body>
-</html>
+        <!-- Comparación de Costos -->
+        <section id="comparacion" class="p-6 sm:p-10 animate-on-scroll">
+            <h2 class="text-2xl sm:text-3xl font-bold text-nux-deep-purple mb-8 text-center">
+                💰 Comparación de Costos: Coolify vs. Alternativas
+            </h2>
+
+            <div class="overflow-x-auto">
+                <table class="comparison-table w-full rounded-xl overflow-hidden shadow-lg">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Característica</th>
+                            <th class="text-center">Heroku</th>
+                            <th class="text-center">Vercel</th>
+                            <th class="text-center bg-nux-vibrant-yellow text-nux-deep-purple">Coolify + VPS</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr>
+                            <td class="font-semibold">Costo base mensual</td>
+                            <td class="text-center">$25-50</td>
+                            <td class="text-center">$20-40</td>
+                            <td class="text-center font-bold text-green-600">$5-10</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Despliegues ilimitados</td>
+                            <td class="text-center">❌</td>
+                            <td class="text-center">❌</td>
+                            <td class="text-center">✅</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">SSL gratis</td>
+                            <td class="text-center">✅</td>
+                            <td class="text-center">✅</td>
+                            <td class="text-center">✅</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Subdominios ilimitados</td>
+                            <td class="text-center">❌</td>
+                            <td class="text-center">❌</td>
+                            <td class="text-center">✅</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Control total</td>
+                            <td class="text-center">❌</td>
+                            <td class="text-center">❌</td>
+                            <td class="text-center">✅</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">Vendor lock-in</td>
+                            <td class="text-center text-red-600">Sí</td>
+                            <td class="text-center text-red-600">Sí</td>
+                            <td class="text-center text-green-600">No</td>
+                        </tr>
+                        <tr class="bg-purple-50">
+                            <td class="font-bold">Costo para 10 módulos/mes</td>
+                            <td class="text-center font-bold text-red-600">$250+</td>
+                            <td class="text-center font-bold text-red-600">$200+</td>
+                            <td class="text-center font-bold text-green-600 text-xl">$5-10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-8 grid md:grid-cols-3 gap-4">
+                <div class="bg-red-50 p-4 rounded-lg border-2 border-red-200">
+                    <div class="text-3xl mb-2">📈</div>
+                    <div class="font-bold text-red-700">Heroku/Vercel</div>
+                    <p class="text-sm text-gray-600 mt-1">Costos crecen exponencialmente</p>
+                </div>
+                <div class="pricing-highlight p-4 rounded-lg border-2 border-nux-vibrant-yellow shadow-lg">
+                    <div class="text-3xl mb-2">🎯</div>
+                    <div class="font-bold">Coolify</div>
+                    <p class="text-sm mt-1">Costo fijo predecible</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg border-2 border-purple-200">
+                    <div class="text-3xl mb-2">💡</div>
+                    <div class="font-bold text-nux-deep-purple">ROI para NUX</div>
+                    <p class="text-sm text-gray-600 mt-1">Ahorro del 95% en infraestructura</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Opciones de Implementación -->
+        <section class="p-6 sm:p-10 bg-gray-50 animate-on-scroll">
+            <h2 class="text-2xl sm:text-3xl font-bold text-nux-deep-purple mb-8">
+                🚀 Opciones de Implementación para NUX
+            </h2>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button class="tab-button active px-6 py-3 rounded-lg font-semibold" onclick="switchTab(event, 'selfhosted')">
+                    🖥️ Self-Hosted
+                </button>
+                <button class="tab-button px-6 py-3 rounded-lg font-semibold bg-gray-100" onclick="switchTab(event, 'cloud')">
+                    ☁️ Coolify Cloud
+                </button>
+                <button class="tab-button px-6 py-3 rounded-lg font-semibold bg-gray-100" onclick="switchTab(event, 'hybrid')">
+                    🔀 Híbrido (Recomendado)
+                </button>
+            </div>
+
+            <!-- Self-Hosted Tab -->
+            <div id="selfhosted" class="tab-content active">
+                <div class="feature-card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold text-nux-deep-purple mb-4">Opción 1: Self-Hosted</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-nux-deep-purple mb-3">✅ Ventajas</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-600">●</span>
+                                    <span>Control total sobre la infraestructura</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-600">●</span>
+                                    <span>Costo más bajo ($5-10/mes por servidor)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-600">●</span>
+                                    <span>Sin límites de proyectos o usuarios</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-nux-deep-purple mb-3">🛠️ Proveedores Recomendados</h4>
+                            <div class="space-y-2">
+                                <div class="bg-blue-50 p-3 rounded-lg">
+                                    <p class="font-bold text-sm">Hetzner</p>
+                                    <p class="text-xs text-gray-600">Desde €4.15/mes - Alto rendimiento</p>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-lg">
+                                    <p class="font-bold text-sm">DigitalOcean</p>
+                                    <p class="text-xs text-gray-600">Desde $6/mes - Fácil configuración</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cloud Tab -->
+            <div id="cloud" class="tab-content">
+                <div class="feature-card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold text-nux-deep-purple mb-4">Opción 2: Coolify Cloud</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-nux-deep-purple mb-3">✅ Ventajas</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-600">●</span>
+                                    <span>Sin mantenimiento de Coolify</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-600">●</span>
+                                    <span>Alta disponibilidad garantizada</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-green-600">●</span>
+                                    <span>Soporte prioritario</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-nux-deep-purple mb-3">💵 Precio</h4>
+                            <div class="bg-yellow-50 p-4 rounded-lg border-2 border-nux-vibrant-yellow">
+                                <p class="text-3xl font-bold text-nux-deep-purple">$5/mes</p>
+                                <p class="text-sm text-gray-600 mt-1">+ costos de servidores para apps
